@@ -8,6 +8,7 @@ import { store } from "./redux/store";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Signin from "./pages/Signin";
+import User from "./pages/User";
 
 const router = createBrowserRouter([
 	{
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
 		path: "/signin",
 		element: <Signin />,
 	},
+	{
+		path: '/user',
+		element: <User />
+	}
 ]);
 
 //On encapsule l'ensemble de nos composants dans Provider qui va distribuer notre stor(state global) à tous nos composants
