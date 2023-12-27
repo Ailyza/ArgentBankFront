@@ -12,6 +12,14 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.wrapper {
+  margin: 0 auto;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .App-header {
   background-color: #282c34;
@@ -36,10 +44,6 @@
     transform: rotate(360deg);
   }
 }
-
-
-
-
 
 html {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -113,8 +117,15 @@ body {
   width: 200px;
 }
 
+.right-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
 .hero {
-  background-image: url('./assets/bank-tree.jpeg');
+  background-image: url("./assets/bank-tree.jpeg");
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
