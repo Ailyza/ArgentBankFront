@@ -1,5 +1,5 @@
 import "../styling/navbar.css";
-import AgentBankLogo from "../assets/argentBankLogo.png";
+import AgentBankLogo from "../assets/argentBankLogo.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGear,
