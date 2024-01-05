@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import TransactionDetails from "../components/TransactionDetails";
-import Transaction from "../components/Transaction";
+import Transactions from "../components/Transactions";
 import "../App.css";
 import { useSelector } from "react-redux";
 import { getAccessToken,getTokenStatus } from "../features/token/tokenSlice";
@@ -20,7 +20,7 @@ const DetailedTransac = () => {
 
   return (
     <div className="wrapper">
-      <Transaction />
+      <Transactions />
       <TransactionDetails />
     </div>
   );
