@@ -8,6 +8,9 @@ export default function Account({ account }) {
 				<p className="account-amount">{account.amount}</p>
 				<p className="account-amount-description">{account.description}</p>
 			</div>
+			<div class="account-content-wrapper cta">
+				<button class="transaction-button">View transactions</button>
+			</div>
 		</section>
 	);
 }
