@@ -7,9 +7,9 @@ import {
 } from "../store/userSlice";
 import { loginUser as apiLoginUser, fetchUserProfile } from "./apiService";
 export const logout = (dispatch) => {
-  // Clear user information from localStorage
+  
   localStorage.removeItem("token");
-  // Reset the Redux state by dispatching appropriate actions
+  // reset le token et le profil
   dispatch(resetUserProfile());
 };
 
@@ -27,11 +27,10 @@ export const loginUser = async (userName, password, dispatch, navigate) => {
     dispatch(setUserProfile(userProfile));
 
     navigate("/profile");
-    // Return null or an empty string to indicate success (no error)
+    // message de succès
     return "";
   } catch (error) {
-    // Handle API call errors, e.g., show an error message to the user
-    // Return the error message as a string
+    // message d'erreur
     return "Failed to sign in. Please try again.";
   }
 };
