@@ -9,7 +9,7 @@ import { logout } from "../../services/authService";
 
 function Nav() {
   // Get user information and authentication status from the Redux store
-  const { userName } = useSelector((state) => state.userProfile);
+  const { userName } = useSelector((state) => state.user.userProfile) || {};
   const isConnected = useSelector((state) => state.isConnected);
 
   // Get the current location using React Router's useLocation

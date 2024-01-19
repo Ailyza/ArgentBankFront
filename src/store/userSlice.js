@@ -1,89 +1,104 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const GET_USER_URL = "http://localhost:3001/api/v1/user/profile";
-
-export const fetchUser = createAsyncThunk(
-	"user/fetchUser",
-	async ({}, { getState }) => {
-		try {
-			const accessToken = getState().token.accessToken;
-
-			if (!accessToken) {
-				throw new Error("your are not authentified");
-			}
-			const response = await axios.post(
-				GET_USER_URL,
-				{},
-				{
-					headers: {
-						Authorization: `Bearer ${accessToken}`,
-					},
-				}
-			);
-			return response.data;
-		} catch (err) {
-			throw new Error("your are not authentified");
-		}
-	}
-);
-
+// userSlice.js
+import { createSlice } from "@reduxjs/toolkit";
+import {
+	fetchUserProfile,
+	updateProfile,
+	loginUser,
+} from "../services/apiService";
+import { logout } from "../services/authService";
+//define initialState outside of slice to reuse this value in the slice and in reducer.
+const initialState = {
+	isConnected: false, // Indicates whether the user is connected
+	token: null, // User authentication token
+	userProfile: {}, // User profile informations
+};
+// Create a Redux slice for managing user-related state
 const userSlice = createSlice({
 	name: "user",
-	initialState: {
-		email: null,
-		firstName: null,
-		lastName: null,
-		userName: null,
-		id: null,
-		status: "idle", // idle | loading | succeeded | failed
-		error: null,
-	},
+	initialState,
 	reducers: {
-		updateUser: (state, action) => {},
-		clearUser: (state, action) => {
-			state.email = null;
-			state.firstName = null;
-			state.lastName = null;
-			state.userName = null;
-			state.id = null;
-			state.status = "idle";
-			state.error = null;
+		// Reducer to set the connection flag
+		setConnexionFlag: (state, action) => {
+			state.isConnected = action.payload;
 		},
-	},
-	extraReducers(builder) {
-		builder
-			.addCase(fetchUser.pending, (state, action) => {
-				state.status = "loading";
-			})
-			.addCase(fetchUser.fulfilled, (state, action) => {
-				const { body } = action.payload;
-				const { email, firstName, lastName, userName, id } = body;
-				state.email = email;
-				state.firstName = firstName;
-				state.lastName = lastName;
-				state.userName = userName;
-				state.id = id;
-				state.status = "succeeded";
-				state.error = null;
-			})
-			.addCase(fetchUser.rejected, (state, action) => {
-				state.status = "failed";
-				state.error = action.error?.message;
-			});
+		// Reducer to set the user token
+		setToken: (state, action) => {
+			state.token = action.payload;
+		},
+		// Reducer to set the user profile
+		setUserProfile: (state, action) => {
+			state.userProfile = action.payload;
+		},
+		// Add a reset action to reset the state to initialState
+		resetUserProfile: () => initialState,
 	},
 });
+// Export action creators for the reducers
+export const { setConnexionFlag, setToken, setUserProfile, resetUserProfile } =
+	userSlice.actions;
 
-export const getUser = (state) => ({
-	email: state.user.email,
-	firstName: state.user.firstName,
-	lastName: state.user.lastName,
-	userName: state.user.userName,
-	id: state.user.id,
-});
-export const getUserStatus = (state) => state.user.status;
-export const getUserErrorMessage = (state) => state.user.error;
+// Async action to fetch the user profile using the provided token
+export const fetchUserProfileAsync = (token) => {
+	return async (dispatch) => {
+		try {
+			const userProfileData = await fetchUserProfile(token);
+			const userProfile = userProfileData.body;
+			dispatch(setUserProfile(userProfile));
+		} catch (error) {
+			if (error.message === "invalid token") {
+				// Handle the error by updating the connection state
+				logout(dispatch);
+				console.error("Invalid token. Logging out.");
+			} else {
+				// Handle other errors here
+				console.error("Error fetching user profile:", error);
+			}
+		}
+	};
+};
 
-export const { updateUser, clearUser } = userSlice.actions;
+// Async action (Thunk) to update the user's username
+export const updateUsernameAsync = (token, newUsername) => {
+	return async (dispatch) => {
+		try {
+			// Call the API to update the username
+			const updatedProfileData = await updateProfile(token, newUsername);
+			const updatedProfile = updatedProfileData.body;
 
+			// Update the user profile in the Redux store
+			dispatch(setUserProfile(updatedProfile));
+		} catch (error) {
+			console.error("Error updating user profile:", error);
+		}
+	};
+};
+
+// Async action (Thunk) to handle user authentication and profile retrieval
+export const signInAsync = (username, password, rememberMe) => {
+	return async (dispatch) => {
+		try {
+			// 1 - Call the API to obtain the authentication token
+			const loginData = await loginUser(username, password);
+			const token = loginData.body.token;
+
+			dispatch(setToken(token));
+
+			if (rememberMe) {
+				localStorage.setItem("token", token);
+			} else {
+				localStorage.removeItem("token");
+			}
+			// 2 - Use the token to fetch the user's profile
+			const userProfileData = await fetchUserProfile(token);
+			const userProfile = userProfileData.body;
+			dispatch(setUserProfile(userProfile));
+			dispatch(setConnexionFlag(true));
+			return true; // Successful connection
+		} catch (error) {
+			// Connection failed with the error
+			console.error("Error during sign-in:", error);
+			return { success: false, error }; // Connection failed with the error
+		}
+	};
+};
 export default userSlice.reducer;

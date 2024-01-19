@@ -13,6 +13,16 @@ export const logout = (dispatch) => {
   dispatch(resetUserProfile());
 };
 
+/**
+ * ! LOGIN USER
+ * ?  Connecte un utilisateur avec le nom d'utilisateur et le mot de passe fournis.
+ *
+ * @param {string} userName - Le nom d'utilisateur de l'utilisateur.
+ * @param {string} password - Le mot de passe de l'utilisateur.
+ * @param {function} dispatch - Une fonction pour envoyer des actions Redux.
+ * @param {function} navigate - Une fonction pour naviguer vers une autre page.
+ * @return {string} - Un message indiquant si la connexion a réussi ou non.
+ */
 export const loginUser = async (userName, password, dispatch, navigate) => {
   try {
     const loginData = await apiLoginUser(userName, password);

@@ -1,0 +1,35 @@
+
+
+.logo {
+  height: 55px;
+  display: flex;
+  align-items: center;
+}
+.logo h1 {
+    color: #00bc78;
+    font-weight: 500;
+    font-size: 2rem;
+}
+  .logo__text-v1 {
+    font-family: "rehn-bold";
+  }
+  .logo__color2 {
+    color: #005834;
+  }
+
+  .logo__image {
+    max-width: 100%;
+    width: 50px;
+  }
+  .logo__text-v2 {
+    font-weight: 600;
+    margin: 0 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .logo__text {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+}
