@@ -79,6 +79,7 @@ export const signInAsync = (username, password, rememberMe) => {
 		try {
 			// 1 - Call the API to obtain the authentication token
 			const loginData = await loginUser(username, password);
+
 			const token = loginData.body.token;
 
 			dispatch(setToken(token));
@@ -93,6 +94,8 @@ export const signInAsync = (username, password, rememberMe) => {
 			const userProfile = userProfileData.body;
 			dispatch(setUserProfile(userProfile));
 			dispatch(setConnexionFlag(true));
+			
+
 			return true; // Successful connection
 		} catch (error) {
 			// Connection failed with the error

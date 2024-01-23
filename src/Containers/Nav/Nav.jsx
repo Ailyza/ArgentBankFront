@@ -6,6 +6,7 @@ import "./nav.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../services/authService";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Nav() {
   // Get user information and authentication status from the Redux store
@@ -27,36 +28,36 @@ function Nav() {
   const displayNav = () => {
     if (location.pathname === "/profile/edit-username") {
       return (
-        <div className="main-nav__green">
-          <Link to="#" className="main-nav-item">
-            <span>{userName}</span>
-            <i className="fa fa-user-circle"></i>
-          </Link>
-          <Link to="#" className="main-nav-item">
-            <i className="fa fa-gear"></i>
-          </Link>
-          <Link onClick={handleLogout} to="/">
-            <i className="fa-solid fa-power-off"></i>
-          </Link>
-        </div>
-      );
+				<div className="main-nav__green">
+					<Link to="#" className="main-nav-item">
+						<span>{userName}</span>
+						<FontAwesomeIcon icon="fa-solid fa-user" />
+					</Link>
+					<Link to="#" className="main-nav-item">
+						<FontAwesomeIcon icon="fa-solid fa-gear" />
+					</Link>
+					<Link onClick={handleLogout} to="/">
+						<FontAwesomeIcon icon="fa-solid fa-power-off" />
+					</Link>
+				</div>
+			);
     }
     return isConnected ? (
-      <>
-        <Link to="profile" className="main-nav-item">
-          {userName}
-        </Link>
-        <Link onClick={handleLogout} to="/" className="main-nav-item">
-          <i className="fa fa-sign-out"></i>
-          <span className="main-nav-item__signout">Sign Out</span>
-        </Link>
-      </>
-    ) : (
-      <Link to="sign-in" className="main-nav-item">
-        <i className="fa fa-user-circle"></i>
-        <span>Sign In</span>
-      </Link>
-    );
+			<>
+				<Link to="profile" className="main-nav-item">
+					{userName}
+				</Link>
+				<Link onClick={handleLogout} to="/" className="main-nav-item">
+					<FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" />
+					<span className="main-nav-item__signout">Sign Out</span>
+				</Link>
+			</>
+		) : (
+			<Link to="sign-in" className="main-nav-item">
+				<FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" />
+				<span>Sign In</span>
+			</Link>
+		);
   };
 
   return (

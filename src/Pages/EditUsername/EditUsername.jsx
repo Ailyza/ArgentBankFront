@@ -17,7 +17,7 @@ function EditUsername() {
 
   // Retrieve user profile and token from Redux state
   const { firstName, lastName, userName } = useSelector(
-    (state) => state.userProfile
+    (state) => state.user.userProfile
   );
   const token = useSelector((state) => state.token);
 

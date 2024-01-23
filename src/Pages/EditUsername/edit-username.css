@@ -1,0 +1,52 @@
+.main {
+  flex: 1;
+}
+.edit-username {
+  font-size: 1rem;}
+
+ .edit-username__title {
+    font-weight: normal;
+    font-size: 3em;
+    margin-bottom: 0.5em;
+  }
+  .edit-username__form {
+    margin: auto;
+    width: 50vw;
+  }
+  .edit-username__error-input {
+    border: 1px solid red;
+  }
+  .edit-username__error-message {
+    color: red;
+    height: 40px;
+  }
+ .edit-username__input-wrapper {
+    padding: 5px;
+    width: 100%;
+ }
+.edit-username__input-wrapper label {
+      font-size: 1em;
+      margin-right: 10px;
+    }
+.edit-username__input-wrapper input {
+      width: 10em;
+      font-size: 1em;
+      padding: 0.5rem;
+      border-radius: 5px;
+    }
+.edit-username__input-wrapper input:disabled {
+      background-color: #e7e7e7;
+    }
+  
+.edit-username__buttons-wrapper {
+    margin: 40px 0 0;
+    display: flex;
+    gap: 0.5em;
+    justify-content: center;
+  }
+
+@media screen and (max-width: 479px) {
+  label {
+    margin: 0;
+  }
+}
