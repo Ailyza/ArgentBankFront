@@ -11,8 +11,8 @@ function Account(props) {
 				<p className="account-amount">{props.amount}</p>
 				<p className="account-amount-description">{props.description}</p>
 			</div>
-			<div class="account-content-wrapper cta">
-				<button class="transaction-button">View transactions</button>
+			<div className="account-content-wrapper cta">
+				<button className="transaction-button">View transactions</button>
 			</div>
 		</section>
 	);

@@ -1,12 +1,10 @@
 import React from "react";
 import Logo from "../../components/Logo/Logo";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./nav.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { logout } from "../../services/authService";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/fontawesome-free";
 
 function Nav() {
   // Get user information and authentication status from the Redux store
@@ -53,7 +51,7 @@ function Nav() {
 				</Link>
 			</>
 		) : (
-			<Link to="sign-in" className="main-nav-item">
+			<Link to="login" className="main-nav-item">
 				<FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" />
 				<span>Sign In</span>
 			</Link>

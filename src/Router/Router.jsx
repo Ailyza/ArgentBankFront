@@ -17,7 +17,7 @@ export default function Router() {
 			<Nav />
 			<Routes>
 				<Route path="/" element={<Home />} />
-				<Route path="/sign-in" element={<SignIn />} />
+				<Route path="/login" element={<SignIn />} />
 				<Route
 					path="/profile"
 					element={
