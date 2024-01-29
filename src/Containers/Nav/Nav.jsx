@@ -4,7 +4,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./nav.css";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../services/authService";
-import { FontAwesomeIcon } from "@fortawesome/fontawesome-free";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+
 
 function Nav() {
   // Get user information and authentication status from the Redux store
@@ -29,14 +32,10 @@ function Nav() {
 				<div className="main-nav__green">
 					<Link to="#" className="main-nav-item">
 						<span>{userName}</span>
-						<FontAwesomeIcon icon="fa-solid fa-user" />
+						<FontAwesomeIcon icon={faCoffee} />;
 					</Link>
-					<Link to="#" className="main-nav-item">
-						<FontAwesomeIcon icon="fa-solid fa-gear" />
-					</Link>
-					<Link onClick={handleLogout} to="/">
-						<FontAwesomeIcon icon="fa-solid fa-power-off" />
-					</Link>
+					<Link to="#" className="main-nav-item"></Link>
+					<Link onClick={handleLogout} to="/"></Link>
 				</div>
 			);
     }
@@ -46,24 +45,25 @@ function Nav() {
 					{userName}
 				</Link>
 				<Link onClick={handleLogout} to="/" className="main-nav-item">
-					<FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" />
 					<span className="main-nav-item__signout">Sign Out</span>
 				</Link>
 			</>
 		) : (
 			<Link to="login" className="main-nav-item">
-				<FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" />
+			
+				<FontAwesomeIcon icon={faUserCircle} />
+				
 				<span>Sign In</span>
 			</Link>
 		);
   };
 
   return (
-    <nav className="main-nav">
-      <Logo className="logo" />
-      <div className="main-nav__links-wrapper">{displayNav()}</div>
-    </nav>
-  );
+		<nav className="main-nav">
+			<Logo className="logo" />
+			<div className="main-nav__links-wrapper">{displayNav()}</div>
+		</nav>
+	);
 }
 
 export default Nav;

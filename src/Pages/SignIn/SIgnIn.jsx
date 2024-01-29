@@ -6,6 +6,8 @@ import "./sign-in.css";
 import { useDispatch } from "react-redux";
 import { isNotEmpty, isValidEmail } from "../../services/validationService";
 import { signInAsync } from "../../store/userSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 function SignIn() {
 	const navigate = useNavigate();
@@ -59,7 +61,7 @@ function SignIn() {
 	return (
 		<main className="main bg-dark">
 			<section className="sign-in-content">
-				<i className="fa fa-user-circle sign-in-icon"></i>
+				<FontAwesomeIcon icon={faUserCircle} />
 				<h1>Sign In</h1>
 				<div className="input-wrapper">
 					<label htmlFor="username">Username</label>
