@@ -11,8 +11,12 @@ import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 function Nav() {
   // Get user information and authentication status from the Redux store
-  const { userName } = useSelector((state) => state.user.userProfile) || {};
-  const isConnected = useSelector((state) => state.isConnected);
+  const { firstName, lastName } = useSelector(
+		(state) => state.user.userProfile
+	);
+
+  
+  const isConnected = useSelector((state) => state.user.isConnected);
 
   // Get the current location using React Router's useLocation
   const location = useLocation();
@@ -27,37 +31,43 @@ function Nav() {
 
   // Determine the content to display in the navigation bar based on the current location and user's authentication status
   const displayNav = () => {
-    if (location.pathname === "/profile/edit-username") {
-      return (
+		let navContent;
+
+		if (location.pathname === "/profile/edit-username") {
+			navContent = (
 				<div className="main-nav__green">
 					<Link to="#" className="main-nav-item">
-						<span>{userName}</span>
-						<FontAwesomeIcon icon={faCoffee} />;
+						<span>{firstName}</span>
+						
 					</Link>
 					<Link to="#" className="main-nav-item"></Link>
 					<Link onClick={handleLogout} to="/"></Link>
 				</div>
 			);
-    }
-    return isConnected ? (
-			<>
-				<Link to="profile" className="main-nav-item">
-					{userName}
+		} else if (isConnected) {
+			navContent = (
+				<>
+					<Link to="profile" className="main-nav-item">
+						<FontAwesomeIcon icon={faUserCircle} />
+						{firstName}
+					</Link>
+					<Link onClick={handleLogout} to="/" className="main-nav-item">
+						<span className="main-nav-item__signout">Sign Out</span>
+					</Link>
+				</>
+			);
+		} else {
+			navContent = (
+				<Link to="login" className="main-nav-item">
+					<FontAwesomeIcon icon={faUserCircle} />
+					<span>Sign In</span>
 				</Link>
-				<Link onClick={handleLogout} to="/" className="main-nav-item">
-					<span className="main-nav-item__signout">Sign Out</span>
-				</Link>
-			</>
-		) : (
-			<Link to="login" className="main-nav-item">
-			
-				<FontAwesomeIcon icon={faUserCircle} />
-				
-				<span>Sign In</span>
-			</Link>
-		);
-  };
+			);
+		}
+		return navContent;
+	};
 
+console.log("Je suis connectée:", firstName);
   return (
 		<nav className="main-nav">
 			<Logo className="logo" />

@@ -57,7 +57,7 @@ function SignIn() {
 			setFormState({ ...formState, error: signInResult.error.message });
 		}
 	};
-
+console.log(formState.username);
 	return (
 		<main className="main bg-dark">
 			<section className="sign-in-content">
